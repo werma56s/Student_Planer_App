@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SPlanner.Models.Budget>
+@using SPlanner.Models;
+@{
+    ViewBag.Title = "Budget List";
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+</p>
+@using (Html.BeginForm())
+{
+    <p style="font-size:larger">
+        Find by name of category: @Html.TextBox("searchString")
+        <input type="submit" value="Search" class="btn btn-default" style="height: 30px; margin-top: -0.2%;" />
+    </p>
+
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Name of Category", "Index", new { sort = ViewBag.NameExpSort })
+        </th>
+        <th>
+            @Html.ActionLink("Budget Date", "Index", new { sort = ViewBag.DataOfBudgetSort })
+        </th>
+        <th>
+            Planned expenses
+        </th>
+        <th>
+            Actual expenses
+        </th>
+        <th>
+            Difference
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameExp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataOfBudget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanedExp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualExp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Difference)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BudgetID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BudgetID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BudgetID })
+            </td>
+        </tr>
+    }
+    @{decimal reuslt1 = 0, result2 = 0, result3 = 0;
+        foreach (var item in Model)
+        {
+            reuslt1 += item.PlanedExp; result2 += item.ActualExp; result3 += item.Difference;
+        }
+        <tr>
+            <td>  </td>
+            <td> Summary: </td>
+            <td>
+                @reuslt1
+            </td>
+
+            @if (result3 < 0)
+            {
+                <td class="alert alert-danger" role="alert">@result2 <svg width="16" height="16" style="float: right; margin-bottom: -1%;"><use xlink:href="#exclamation-triangle-fill" /></svg></td>
+
+            }
+            else
+            {
+                <td class="alert alert-success" role="alert">@result2 <svg width="16" height="16" style="float: right; margin-bottom: -1%;"><use xlink:href="#check-circle-fill" /></svg></td>
+            }
+
+            <td>
+                @result3
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="container" style="margin-top: 5%">
+    <div class="row ">
+        <div class="col col-md-2">@Html.ActionLink("Download Excel File", "ExportToExcel", "Budgets", new { @class = "btn btn-default" })</div>
+
+        <div class="col col-md-2">
+            @using (Html.BeginForm("ImportToData", "Budgets", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data"
+            }))
+            {
+                @ViewBag.Error
+                <table>
+                    <tr>
+                        <td> File: </td>
+                        <td>
+                            <input type="file"
+                                   name="UploadedFile" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" name="Submit" value="Submit" class="btn btn-default" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+

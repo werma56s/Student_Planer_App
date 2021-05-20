@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "ImportToData";
+}
+
+@Html.Raw(TempData["Error"])
+
+<h2>Check your Excel file</h2>
+
+<p>Data that you want to import to aplication must start form row number 2 </p>
+
+<p>Example of file:</p>
+<img src="~/img/Example1.png" style="width:60%; height:60%" />
+
+<br /><br />
+@Html.ActionLink("Back to Budget list", "Index")
+
+
+
+

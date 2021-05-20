@@ -1,0 +1,50 @@
+﻿@model SPlanner.Models.Budget
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Budget</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameExp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOfBudget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOfBudget)
+        </dd>
+
+        <dt>
+            Planed Expenditure
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanedExp)
+        </dd>
+
+        <dt>
+            Actualy Expenditure
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualExp)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BudgetID }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

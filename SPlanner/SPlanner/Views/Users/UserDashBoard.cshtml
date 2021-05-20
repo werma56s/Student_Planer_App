@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Application Student Planner - User Panel";
+}
+
+<div class="jumbotron" style="background-color: #C593FA; color: white; height: auto;">
+    <h2 style="letter-spacing: 5px;text-transform: uppercase;">
+        @ViewBag.Title
+    </h2>
+</div>
+
+<div class="container">
+    <div class="row" style="text-align: center;">
+        <div class="col-md-4">
+            <h2>Get started, and create your Events list!</h2>
+            <img src="~/img/004-event.png" class="d-block w-100" alt="logPic" style="display: block; margin-left: auto; margin-right: auto; width:124px">
+            @Html.ActionLink("Events", "Index", "Events", null, new { @class = "btn btn-default", @style = "margin-top: 5%;" })
+        </div>
+        <div class="col-md-4">
+            <h2>Get started, and create your Budget list!</h2>
+            <img src="~/img/001-calculator.png" class="d-block w-100" alt="logPic" style="display: block; margin-left: auto; margin-right: auto; width:124px">
+            @Html.ActionLink("Budget", "Index", "Budgets", null, new { @class = "btn btn-default", @style = "margin-top: 5%;" })
+        </div>
+        <div class="col-md-4">
+            <h2>Get started, and create your Grade list!</h2>
+            <img src="~/img/005-test.png" class="d-block w-100" alt="logPic" style="display: block; margin-left: auto; margin-right: auto; width:124px">
+            @Html.ActionLink("Grade", "Index", "Grades", null, new { @class = "btn btn-default", @style = "margin-top: 5%;" })
+        </div>
+    </div>
+</div>
