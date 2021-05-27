@@ -8,10 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using SPlanner.DAL;
 using SPlanner.Models;
+using SPlanner.Interfaces;
 
 namespace SPlanner.Controllers
 {
-    public class GradesController : Controller
+    public class GradesController : Controller, IGradesController
     {
         private SPlannerContext db = new SPlannerContext();
 

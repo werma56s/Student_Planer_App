@@ -15,17 +15,18 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Data.Entity.Validation;
+using SPlanner.Interfaces;
 
 namespace SPlanner.Controllers
 {
-    public class BudgetsController : Controller
+    public class BudgetsController : Controller, IBudgetsController
     {
         private SPlannerContext db = new SPlannerContext();
 
         // GET: Budgets
         public ActionResult Index(string sort, string searchString)
         {
-            var budgets = db.Budgets.Include(b => b.User);
+            var budgets = db.Budgets.Include(b => b.User); //eager loading
 
             ViewBag.NameExpSort = String.IsNullOrEmpty(sort) ? "name_desc" : "";
             ViewBag.DataOfBudgetSort = sort == "dataBudget" ? "dataBudget_desc" : "dataBudget";
@@ -108,7 +109,7 @@ namespace SPlanner.Controllers
                 }
                 worksheet.Cells["A:AZ"].AutoFitColumns();
                 string excelName = "BudgetReport";
-                using (var memoryStream = new MemoryStream())
+                using (var memoryStream = new MemoryStream()) 
                 {
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                     Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
@@ -151,7 +152,7 @@ namespace SPlanner.Controllers
 
                             double dateNum = double.Parse(worksheet.Cells[row, 2].Value.ToString());
                             DateTime result = DateTime.FromOADate(dateNum);
-                            budget.DataOfBudget = result; //
+                            budget.DataOfBudget = result; 
                             budget.PlanedExp = Convert.ToDecimal(worksheet.Cells[row, 3].Value);
                             budget.ActualExp = Convert.ToDecimal(worksheet.Cells[row, 4].Value);
                             budget.UserID = int.Parse(Session["UserID"].ToString());
@@ -163,7 +164,7 @@ namespace SPlanner.Controllers
                     }
                 }
               }
-            catch (DbEntityValidationException ex)
+            catch (DbEntityValidationException ex) 
             {
                 // Retrieve the error messages as a list of strings.
                 var errorMessages = ex.EntityValidationErrors
@@ -177,6 +178,9 @@ namespace SPlanner.Controllers
                 var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
                 
                 // Throw a new DbEntityValidationException with the improved exception message.
+                TempData["Error"] = "<script>alert('Import Valid - Read about this');</script>";
+            }catch(Exception e)
+            {
                 TempData["Error"] = "<script>alert('Import Valid - Read about this');</script>";
             }
             return View("ImportToData");

@@ -10,10 +10,10 @@ using System.Web.Mvc;
 using SPlanner.DAL;
 using SPlanner.Models;
 using SPlanner.Security;
-
+using SPlanner.Interfaces;
 namespace SPlanner.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : Controller, IUserController
     {
         private SPlannerContext db = new SPlannerContext();
 
@@ -101,7 +101,6 @@ namespace SPlanner.Controllers
                 var user = db.Users.Where(x => x.EmailAddress == u.EmailAddress && x.Password == u.Password).FirstOrDefault();
                 if (user != null)
                 {
-                    //return RedirectToAction("../Home/Calendar");
 
                     Session["UserID"] = user.UserID.ToString();
                     Session["RolaFK"] = user.RolaID.ToString();

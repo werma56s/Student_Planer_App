@@ -9,10 +9,11 @@ using System.Web.Mvc;
 using SPlanner.DAL;
 using SPlanner.Models;
 using PagedList;
+using SPlanner.Interfaces;
 
 namespace SPlanner.Controllers
 {
-    public class EventsController : Controller
+    public class EventsController : Controller, IEventsController
     {
         private SPlannerContext db = new SPlannerContext();
 

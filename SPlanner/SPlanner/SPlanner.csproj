@@ -156,8 +156,12 @@
     <Compile Include="Interfaces\IBudget.cs" />
     <Compile Include="Interfaces\ICategory.cs" />
     <Compile Include="Interfaces\IEvent.cs" />
+    <Compile Include="Interfaces\IEventsController.cs" />
     <Compile Include="Interfaces\IGrade.cs" />
+    <Compile Include="Interfaces\IBudgetsController.cs" />
+    <Compile Include="Interfaces\IGradesController.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Interfaces\IUserController.cs" />
     <Compile Include="Migrations\202105051303467_FirstMigration.cs" />
     <Compile Include="Migrations\202105051303467_FirstMigration.designer.cs">
       <DependentUpon>202105051303467_FirstMigration.cs</DependentUpon>
